@@ -7,6 +7,8 @@ let catalogSearchTerm = '';
 let lastKnownTopOrderId = null;
 let pendingUploadDataUrl = null;
 let pendingUploadFilename = '';
+let ordersPollTimer = null;
+let dashboardEventsBound = false;
 
 const STATUS_OPTIONS = [
   'Confirmed - Processing Dispatch',
@@ -77,6 +79,10 @@ function showDashToast(message) {
 async function fetchDashboardOrders(silent = false) {
   try {
     const res = await fetch('/api/orders');
+    if (res.status === 401) {
+      showAdminLoginGate();
+      return;
+    }
     const json = await res.json();
     if (!json.success) return;
 
@@ -661,9 +667,35 @@ async function deletePerfume(productId, productName) {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function showAdminLoginGate() {
+  if (ordersPollTimer) {
+    clearInterval(ordersPollTimer);
+    ordersPollTimer = null;
+  }
+  const gate = document.getElementById('adminLoginGate');
+  const shell = document.getElementById('dashboardAppShell');
+  if (gate) gate.style.display = 'flex';
+  if (shell) shell.style.display = 'none';
+}
+
+function showDashboardShell() {
+  const gate = document.getElementById('adminLoginGate');
+  const shell = document.getElementById('dashboardAppShell');
+  if (gate) gate.style.display = 'none';
+  if (shell) shell.style.display = 'block';
+  initDashboardApp();
+}
+
+function initDashboardApp() {
   fetchDashboardOrders(false);
   fetchDashboardProducts();
+
+  if (!ordersPollTimer) {
+    ordersPollTimer = setInterval(() => fetchDashboardOrders(true), 8000);
+  }
+
+  if (dashboardEventsBound) return;
+  dashboardEventsBound = true;
 
   // Dashboard Tab Switcher
   document.querySelectorAll('.dash-nav-tab').forEach(tabBtn => {
@@ -722,5 +754,72 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCatalogList();
   });
 
-  setInterval(() => fetchDashboardOrders(true), 8000);
+  document.getElementById('adminLogoutBtn').addEventListener('click', async () => {
+    await fetch('/api/admin/logout', { method: 'POST' });
+    showAdminLoginGate();
+    showDashToast('Logged out successfully.');
+  });
+}
+
+async function checkAdminSession() {
+  try {
+    const res = await fetch('/api/admin/me');
+    if (res.ok) {
+      showDashboardShell();
+    } else {
+      showAdminLoginGate();
+    }
+  } catch {
+    showAdminLoginGate();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.getElementById('adminLoginForm');
+  const loginError = document.getElementById('adminLoginError');
+  const loginBtn = document.getElementById('adminLoginBtn');
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (loginError) loginError.style.display = 'none';
+      if (loginBtn) {
+        loginBtn.disabled = true;
+        loginBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Verifying...</span>`;
+      }
+
+      try {
+        const email = document.getElementById('adminLoginEmail').value.trim();
+        const password = document.getElementById('adminLoginPassword').value;
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const json = await res.json();
+
+        if (res.ok && json.success) {
+          loginForm.reset();
+          showDashboardShell();
+        } else {
+          if (loginError) {
+            loginError.textContent = json.message || 'Invalid email or password.';
+            loginError.style.display = 'block';
+          }
+        }
+      } catch {
+        if (loginError) {
+          loginError.textContent = 'Network error. Please try again.';
+          loginError.style.display = 'block';
+        }
+      } finally {
+        if (loginBtn) {
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> <span>Login to Dashboard</span>`;
+        }
+      }
+    });
+  }
+
+  checkAdminSession();
 });

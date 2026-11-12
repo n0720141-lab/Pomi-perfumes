@@ -13,6 +13,48 @@
 </head>
 <body class="dashboard-body">
 
+  <!-- Admin Login Gate -->
+  <section class="admin-login-gate" id="adminLoginGate">
+    <div class="admin-login-card">
+      <div class="admin-login-brand">
+        <div class="logo-emblem"><i class="fa-solid fa-gem"></i></div>
+        <div>
+          <span class="brand-title">POMI</span>
+          <span class="brand-sub">PERFUMES</span>
+        </div>
+      </div>
+
+      <h1><i class="fa-solid fa-lock text-gold"></i> Admin Dashboard Login</h1>
+      <p>Sirf authorized store admin hi is dashboard ko access kar sakte hain.</p>
+
+      <form id="adminLoginForm" class="admin-login-form">
+        <div class="form-group">
+          <label for="adminLoginEmail">Admin Email *</label>
+          <input type="email" id="adminLoginEmail" placeholder="Enter admin email" autocomplete="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="adminLoginPassword">Password *</label>
+          <input type="password" id="adminLoginPassword" placeholder="Enter admin password" autocomplete="current-password" required>
+        </div>
+
+        <div class="admin-login-error" id="adminLoginError" style="display:none;"></div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="adminLoginBtn">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <span>Login to Dashboard</span>
+        </button>
+      </form>
+
+      <a href="/" class="admin-back-link">
+        <i class="fa-solid fa-arrow-left"></i> Back to Pomi Perfumes Website
+      </a>
+    </div>
+  </section>
+
+  <!-- Protected Dashboard App Shell -->
+  <div id="dashboardAppShell" style="display:none;">
+
   <!-- Dashboard Topbar -->
   <header class="dash-header">
     <div class="container dash-header-inner">
@@ -38,6 +80,9 @@
         <a href="/" class="btn btn-sm btn-primary" style="text-decoration:none;">
           <i class="fa-solid fa-store"></i> View Website
         </a>
+        <button type="button" class="btn btn-sm btn-outline" id="adminLogoutBtn" title="Logout from Dashboard">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
       </div>
     </div>
   </header>
@@ -301,6 +346,7 @@
       </section>
     </div>
   </main>
+  </div><!-- /#dashboardAppShell -->
 
   <!-- Order Detail / Receipt Modal -->
   <div class="modal-overlay" id="orderDetailModal">

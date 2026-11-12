@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -9,6 +10,118 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json({ limit: '15mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// ==================== ADMIN AUTHENTICATION ====================
+const ADMIN_EMAIL = (process.env.ADMIN_EMAIL || 'muhammadahmad4305@gmail.com').toLowerCase();
+const ADMIN_PASSWORD_SALT = '825597687e8840df646c4ef7b54e8b99';
+const ADMIN_PASSWORD_HASH = '027531bb8a7fa0fc0403b3c6c4d231c679f092c9b8ecdd9a97ccf781729dd0609cc8b1a672622278ad607ea0e92943119655c8e72bbaa69fb498f2eb1811f64f';
+const SESSION_COOKIE_NAME = 'pomi_admin_session';
+const SESSION_TTL_MS = 24 * 60 * 60 * 1000;
+const SECRET_FILE = path.join(__dirname, '.session-secret');
+
+function getSessionSecret() {
+  if (process.env.SESSION_SECRET) return process.env.SESSION_SECRET;
+  try {
+    if (fs.existsSync(SECRET_FILE)) {
+      const existing = fs.readFileSync(SECRET_FILE, 'utf8').trim();
+      if (existing.length >= 32) return existing;
+    }
+    const generated = crypto.randomBytes(32).toString('hex');
+    fs.writeFileSync(SECRET_FILE, generated);
+    return generated;
+  } catch (err) {
+    return crypto.randomBytes(32).toString('hex');
+  }
+}
+
+const SESSION_SECRET = getSessionSecret();
+
+function verifyAdminPassword(plainPassword) {
+  if (typeof plainPassword !== 'string' || !plainPassword) return false;
+  const derived = crypto.scryptSync(plainPassword, ADMIN_PASSWORD_SALT, 64);
+  const expected = Buffer.from(ADMIN_PASSWORD_HASH, 'hex');
+  if (derived.length !== expected.length) return false;
+  return crypto.timingSafeEqual(derived, expected);
+}
+
+function createSessionToken(email) {
+  const payload = Buffer.from(JSON.stringify({ email, exp: Date.now() + SESSION_TTL_MS })).toString('base64url');
+  const sig = crypto.createHmac('sha256', SESSION_SECRET).update(payload).digest('base64url');
+  return `${payload}.${sig}`;
+}
+
+function verifySessionToken(token) {
+  if (!token || typeof token !== 'string' || !token.includes('.')) return null;
+  const [payload, sig] = token.split('.');
+  const expectedSig = crypto.createHmac('sha256', SESSION_SECRET).update(payload).digest('base64url');
+  const sigBuf = Buffer.from(sig);
+  const expBuf = Buffer.from(expectedSig);
+  if (sigBuf.length !== expBuf.length || !crypto.timingSafeEqual(sigBuf, expBuf)) return null;
+
+  try {
+    const parsed = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'));
+    if (!parsed || parsed.email !== ADMIN_EMAIL || !parsed.exp || parsed.exp < Date.now()) {
+      return null;
+    }
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function parseCookies(req) {
+  const raw = req.headers.cookie || '';
+  const map = {};
+  raw.split(';').forEach(pair => {
+    const idx = pair.indexOf('=');
+    if (idx > 0) {
+      const k = pair.slice(0, idx).trim();
+      const v = pair.slice(idx + 1).trim();
+      map[k] = decodeURIComponent(v);
+    }
+  });
+  return map;
+}
+
+function requireAdminAuth(req, res, next) {
+  const cookies = parseCookies(req);
+  const session = verifySessionToken(cookies[SESSION_COOKIE_NAME]);
+  if (!session) {
+    return res.status(401).json({ success: false, message: 'Unauthorized: Please login with admin account.' });
+  }
+  req.adminEmail = session.email;
+  next();
+}
+
+app.post('/api/admin/login', (req, res) => {
+  const { email, password } = req.body || {};
+  const normalizedEmail = String(email || '').trim().toLowerCase();
+
+  if (normalizedEmail !== ADMIN_EMAIL || !verifyAdminPassword(String(password || ''))) {
+    return res.status(401).json({ success: false, message: 'Ghalat Email ya Password! Sirf authorized admin hi login kar sakta hai.' });
+  }
+
+  const token = createSessionToken(ADMIN_EMAIL);
+  res.setHeader(
+    'Set-Cookie',
+    `${SESSION_COOKIE_NAME}=${encodeURIComponent(token)}; HttpOnly; Path=/; SameSite=Lax; Max-Age=${Math.floor(SESSION_TTL_MS / 1000)}`
+  );
+  res.json({ success: true, email: ADMIN_EMAIL });
+});
+
+app.post('/api/admin/logout', (req, res) => {
+  res.setHeader('Set-Cookie', `${SESSION_COOKIE_NAME}=; HttpOnly; Path=/; SameSite=Lax; Max-Age=0`);
+  res.json({ success: true });
+});
+
+app.get('/api/admin/me', (req, res) => {
+  const cookies = parseCookies(req);
+  const session = verifySessionToken(cookies[SESSION_COOKIE_NAME]);
+  if (!session) {
+    return res.status(401).json({ authenticated: false });
+  }
+  res.json({ authenticated: true, email: session.email });
+});
 
 // In-memory or JSON file order storage
 const ORDERS_FILE = path.join(__dirname, 'orders.json');
@@ -87,7 +200,7 @@ app.get('/api/products/:id', (req, res) => {
 });
 
 // API: Upload perfume image (base64 dataUrl -> public/images/uploads/)
-app.post('/api/upload-image', (req, res) => {
+app.post('/api/upload-image', requireAdminAuth, (req, res) => {
   const { filename, dataUrl } = req.body || {};
   if (!dataUrl || typeof dataUrl !== 'string') {
     return res.status(400).json({ success: false, message: 'Image data is required' });
@@ -172,7 +285,7 @@ function buildProductPayload(body, existing = null) {
 }
 
 // API: Add a new perfume product
-app.post('/api/products', (req, res) => {
+app.post('/api/products', requireAdminAuth, (req, res) => {
   const { name, price, category } = req.body || {};
   if (!name || !String(name).trim() || !category || !Number(price)) {
     return res.status(400).json({ success: false, message: 'Perfume name, category, and valid price are required' });
@@ -186,7 +299,7 @@ app.post('/api/products', (req, res) => {
 });
 
 // API: Update existing perfume product
-app.put('/api/products/:id', (req, res) => {
+app.put('/api/products/:id', requireAdminAuth, (req, res) => {
   const idx = products.findIndex(p => p.id === req.params.id);
   if (idx === -1) {
     return res.status(404).json({ success: false, message: 'Product not found' });
@@ -204,7 +317,7 @@ app.put('/api/products/:id', (req, res) => {
 });
 
 // API: Delete perfume product
-app.delete('/api/products/:id', (req, res) => {
+app.delete('/api/products/:id', requireAdminAuth, (req, res) => {
   const idx = products.findIndex(p => p.id === req.params.id);
   if (idx === -1) {
     return res.status(404).json({ success: false, message: 'Product not found' });
@@ -299,7 +412,7 @@ app.post('/api/orders', (req, res) => {
 });
 
 // API: Get all orders & dashboard stats
-app.get('/api/orders', (req, res) => {
+app.get('/api/orders', requireAdminAuth, (req, res) => {
   const activeOrders = orders.filter(o => o.status !== 'Cancelled');
   const stats = {
     totalOrders: orders.length,
@@ -312,7 +425,7 @@ app.get('/api/orders', (req, res) => {
 });
 
 // API: Update order status
-app.patch('/api/orders/:orderId/status', (req, res) => {
+app.patch('/api/orders/:orderId/status', requireAdminAuth, (req, res) => {
   const { status } = req.body;
   const order = orders.find(o => o.orderId === req.params.orderId);
   if (!order) {
@@ -330,7 +443,7 @@ app.patch('/api/orders/:orderId/status', (req, res) => {
 });
 
 // API: Delete order
-app.delete('/api/orders/:orderId', (req, res) => {
+app.delete('/api/orders/:orderId', requireAdminAuth, (req, res) => {
   const idx = orders.findIndex(o => o.orderId === req.params.orderId);
   if (idx === -1) {
     return res.status(404).json({ success: false, message: 'Order not found' });

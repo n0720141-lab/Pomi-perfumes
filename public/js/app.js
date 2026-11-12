@@ -1100,6 +1100,19 @@ async function openRecentOrdersModal() {
 
   try {
     const res = await fetch('/api/orders');
+    if (res.status === 401) {
+      wrapper.innerHTML = `
+        <div style="padding: 1.5rem; text-align: center;">
+          <p style="color: var(--text-muted); margin-bottom: 1rem;">
+            <i class="fa-solid fa-lock text-gold"></i> Sirf Store Admin login karke orders dekh sakte hain.
+          </p>
+          <a href="/dashboard" class="btn btn-primary btn-sm" style="text-decoration:none;">
+            <i class="fa-solid fa-right-to-bracket"></i> Admin Login / Dashboard
+          </a>
+        </div>
+      `;
+      return;
+    }
     const json = await res.json();
     if (json.success && json.orders.length > 0) {
       wrapper.innerHTML = `
