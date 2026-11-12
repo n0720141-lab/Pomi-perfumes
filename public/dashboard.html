@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Store Dashboard | POMI PERFUMES</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body class="dashboard-body">
+
+  <!-- Dashboard Topbar -->
+  <header class="dash-header">
+    <div class="container dash-header-inner">
+      <div class="dash-brand">
+        <a href="/" class="brand-logo" style="text-decoration:none;">
+          <div class="logo-emblem"><i class="fa-solid fa-gem"></i></div>
+          <div class="logo-text">
+            <span class="brand-title">POMI</span>
+            <span class="brand-sub">PERFUMES</span>
+          </div>
+        </a>
+        <span class="dash-badge">
+          <span class="live-dot"></span>
+          Store Dashboard
+        </span>
+      </div>
+
+      <div class="dash-header-actions">
+        <span class="dash-sync-text" id="lastSyncText">Syncing...</span>
+        <button type="button" class="btn btn-sm btn-outline" id="refreshOrdersBtn">
+          <i class="fa-solid fa-rotate"></i> Refresh
+        </button>
+        <a href="/" class="btn btn-sm btn-primary" style="text-decoration:none;">
+          <i class="fa-solid fa-store"></i> View Website
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container dash-main">
+    <!-- Dashboard Mode Switcher Tabs -->
+    <nav class="dash-nav-tabs" aria-label="Dashboard Sections">
+      <button type="button" class="dash-nav-tab active" data-tab="orders">
+        <i class="fa-solid fa-clipboard-list"></i>
+        <span>Received Orders</span>
+        <span class="dash-tab-count" id="tabOrdersCount">0</span>
+      </button>
+      <button type="button" class="dash-nav-tab" data-tab="products">
+        <i class="fa-solid fa-spray-can-sparkles"></i>
+        <span>Add & Manage Perfumes</span>
+        <span class="dash-tab-count" id="tabProductsCount">0</span>
+      </button>
+    </nav>
+
+    <!-- ==================== ORDERS VIEW ==================== -->
+    <div id="ordersTabView" class="dash-tab-panel active">
+      <!-- Summary KPI Cards -->
+      <section class="dash-stats-grid" aria-label="Order Summary Metrics">
+        <div class="dash-stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+          <div>
+            <span class="stat-label">Total Orders</span>
+            <strong class="stat-value" id="statTotalOrders">0</strong>
+          </div>
+        </div>
+
+        <div class="dash-stat-card">
+          <div class="stat-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+          <div>
+            <span class="stat-label">Total Sales (Active)</span>
+            <strong class="stat-value text-gold" id="statTotalRevenue">Rs. 0</strong>
+          </div>
+        </div>
+
+        <div class="dash-stat-card">
+          <div class="stat-icon stat-icon-warn"><i class="fa-solid fa-clock"></i></div>
+          <div>
+            <span class="stat-label">Pending Dispatch</span>
+            <strong class="stat-value" id="statPendingOrders">0</strong>
+          </div>
+        </div>
+
+        <div class="dash-stat-card">
+          <div class="stat-icon stat-icon-ok"><i class="fa-solid fa-truck-fast"></i></div>
+          <div>
+            <span class="stat-label">Dispatched / Delivered</span>
+            <strong class="stat-value" id="statCompletedOrders">0</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- Search & Status Filter Toolbar -->
+      <section class="dash-toolbar">
+        <div class="dash-search-wrap">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            type="text"
+            id="dashSearchInput"
+            placeholder="Search by Order ID, Customer Name, Phone, City, Email, or Perfume..."
+          >
+        </div>
+
+        <div class="dash-filter-pills" id="statusFilterPills">
+          <button type="button" class="filter-pill active" data-status="all">All Orders</button>
+          <button type="button" class="filter-pill" data-status="Confirmed - Processing Dispatch">Pending</button>
+          <button type="button" class="filter-pill" data-status="Dispatched / Shipped">Dispatched</button>
+          <button type="button" class="filter-pill" data-status="Delivered">Delivered</button>
+          <button type="button" class="filter-pill" data-status="Cancelled">Cancelled</button>
+        </div>
+      </section>
+
+      <!-- Orders List Container -->
+      <section class="dash-table-card">
+        <div class="dash-table-head">
+          <div>
+            <h2>Received Customer Orders</h2>
+            <p id="ordersCountLabel">Loading received orders...</p>
+          </div>
+        </div>
+
+        <div class="dash-table-scroll" id="dashOrdersContainer">
+          <p class="dash-empty-state"><i class="fa-solid fa-spinner fa-spin"></i> Loading orders...</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ==================== PERFUMES / CATALOG VIEW ==================== -->
+    <div id="productsTabView" class="dash-tab-panel">
+      <section class="dash-catalog-layout">
+        <!-- Add / Edit Perfume Form -->
+        <div class="dash-form-card" id="perfumeFormCard">
+          <div class="dash-form-head">
+            <div>
+              <h2 id="perfumeFormTitle"><i class="fa-solid fa-plus-circle text-gold"></i> Add New Perfume</h2>
+              <p>Bina kisi coding ke kisi bhi category mein naya perfume add ya edit karein.</p>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline" id="cancelEditPerfumeBtn" style="display:none;">
+              Cancel Edit
+            </button>
+          </div>
+
+          <form id="perfumeManageForm" class="dash-perfume-form">
+            <input type="hidden" id="editingProductId" value="">
+
+            <div class="dash-form-grid-2">
+              <div class="form-group">
+                <label for="prodName">Perfume Name *</label>
+                <input type="text" id="prodName" placeholder="e.g. OUD AL SULTAN" required>
+              </div>
+
+              <div class="form-group">
+                <label for="prodCategorySelect">Category *</label>
+                <select id="prodCategorySelect" class="inline-select" required>
+                  <option value="men">Men</option>
+                  <option value="women">Women</option>
+                  <option value="unisex">Unisex</option>
+                  <option value="oud">Royal Oud</option>
+                  <option value="attar">Pure Attar</option>
+                  <option value="gift-sets">Gift Sets</option>
+                  <option value="__CUSTOM__">+ Create New Category...</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" id="customCategoryGroup" style="display:none;">
+              <label for="prodCustomCategory">New Category Name *</label>
+              <input type="text" id="prodCustomCategory" placeholder="e.g. Body Mist, Bakhoor, Luxury Sets">
+            </div>
+
+            <div class="dash-form-grid-3">
+              <div class="form-group">
+                <label for="prodPrice">Sale Price (Rs.) *</label>
+                <input type="number" id="prodPrice" min="1" placeholder="e.g. 3299" required>
+              </div>
+
+              <div class="form-group">
+                <label for="prodOriginalPrice">Original / Cut Price (Optional)</label>
+                <input type="number" id="prodOriginalPrice" min="0" placeholder="e.g. 4500">
+              </div>
+
+              <div class="form-group">
+                <label for="prodPrimarySize">Bottle Size *</label>
+                <input type="text" id="prodPrimarySize" value="50ml" placeholder="e.g. 50ml or 12ml Vial" required>
+              </div>
+            </div>
+
+            <div class="dash-form-grid-2">
+              <div class="form-group">
+                <label for="prodSecondarySize">2nd Size (Optional)</label>
+                <input type="text" id="prodSecondarySize" placeholder="e.g. 100ml">
+              </div>
+              <div class="form-group">
+                <label for="prodSecondaryPrice">2nd Size Price Rs. (Optional)</label>
+                <input type="number" id="prodSecondaryPrice" min="0" placeholder="e.g. 4999">
+              </div>
+            </div>
+
+            <!-- Image Upload & Preview -->
+            <div class="dash-image-upload-box">
+              <div class="dash-upload-controls">
+                <label class="upload-label">Perfume Picture *</label>
+                <div class="upload-btn-row">
+                  <label for="prodImageFile" class="btn btn-sm btn-outline upload-trigger">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Upload Photo (PC / Mobile)
+                  </label>
+                  <input type="file" id="prodImageFile" accept="image/*" style="display:none;">
+                  <span id="uploadFileStatus" class="upload-status-text">JPG, PNG, or WEBP</span>
+                </div>
+                <input type="text" id="prodImagePath" placeholder="Or paste image path/URL (e.g. images/janan.jpg)" required>
+              </div>
+              <div class="dash-image-preview-wrap">
+                <img id="prodImagePreview" src="/images/pomi-collection.jpg" alt="Perfume preview">
+              </div>
+            </div>
+
+            <div class="dash-form-grid-2">
+              <div class="form-group">
+                <label for="prodBadge">Badge / Label</label>
+                <input type="text" id="prodBadge" value="New Launch" placeholder="e.g. Bestseller, New Launch">
+              </div>
+              <div class="form-group">
+                <label for="prodConcentration">Type / Concentration</label>
+                <select id="prodConcentration" class="inline-select">
+                  <option value="Extrait de Parfum">Extrait de Parfum</option>
+                  <option value="Eau de Parfum">Eau de Parfum</option>
+                  <option value="Pure Perfume Oil">Pure Perfume Oil (Attar)</option>
+                  <option value="Extrait de Parfum Set">Extrait de Parfum Set</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="dash-form-grid-2">
+              <div class="form-group">
+                <label for="prodGender">Target Audience</label>
+                <select id="prodGender" class="inline-select">
+                  <option value="Men">Men</option>
+                  <option value="Women">Women</option>
+                  <option value="Unisex">Unisex</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="prodLongevity">Longevity</label>
+                <input type="text" id="prodLongevity" value="16+ Hours" placeholder="e.g. 14+ Hours">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="prodTagline">Short Tagline</label>
+              <input type="text" id="prodTagline" placeholder="e.g. Bold, woody & unforgettable signature scent">
+            </div>
+
+            <div class="form-group">
+              <label for="prodDescription">Full Description</label>
+              <textarea id="prodDescription" rows="2" placeholder="Perfume ki khusboo aur quality ke bare mein details likhein..."></textarea>
+            </div>
+
+            <div class="dash-form-grid-3">
+              <div class="form-group">
+                <label for="prodTopNotes">Top Notes (Comma separated)</label>
+                <input type="text" id="prodTopNotes" placeholder="Bergamot, Saffron">
+              </div>
+              <div class="form-group">
+                <label for="prodHeartNotes">Heart Notes</label>
+                <input type="text" id="prodHeartNotes" placeholder="Rose, Lavender">
+              </div>
+              <div class="form-group">
+                <label for="prodBaseNotes">Base Notes</label>
+                <input type="text" id="prodBaseNotes" placeholder="Oud, Amber, Musk">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" id="savePerfumeBtn" style="margin-top:0.5rem; padding:0.95rem;">
+              <i class="fa-solid fa-plus"></i>
+              <span>Add Perfume to Website</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Existing Perfumes List -->
+        <div class="dash-table-card">
+          <div class="dash-table-head dash-catalog-head">
+            <div>
+              <h2>Live Website Perfumes</h2>
+              <p id="catalogCountLabel">Loading catalog...</p>
+            </div>
+            <div class="dash-search-wrap" style="max-width:260px;">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="catalogSearchInput" placeholder="Search perfume or category...">
+            </div>
+          </div>
+
+          <div class="dash-catalog-list" id="dashProductsContainer">
+            <p class="dash-empty-state"><i class="fa-solid fa-spinner fa-spin"></i> Loading perfumes...</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Order Detail / Receipt Modal -->
+  <div class="modal-overlay" id="orderDetailModal">
+    <div class="dash-detail-modal">
+      <button type="button" class="modal-close-btn" id="closeOrderDetailBtn" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div id="orderDetailContent">
+        <!-- Populated dynamically by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

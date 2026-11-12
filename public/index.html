@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POMI PERFUMES | Luxury Fragrances</title>
+  <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="announcement-content">
+      <span>✨ <strong>POMI PERFUMES EXCLUSIVE:</strong> Use code <mark>LUXURY10</mark> for 10% OFF</span>
+      <span class="divider">•</span>
+      <span>🚚 Free Express Shipping across Pakistan on orders above Rs. 5,000</span>
+      <span class="divider">•</span>
+      <span>💎 100% French Grade Concentrates | 14+ Hours Guaranteed Longevity</span>
+    </div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="site-header">
+    <div class="container header-container">
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <!-- Brand Logo -->
+      <a href="#" class="brand-logo">
+        <div class="logo-emblem">
+          <i class="fa-solid fa-gem"></i>
+        </div>
+        <div class="logo-text">
+          <span class="brand-title">POMI</span>
+          <span class="brand-sub">PERFUMES</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="nav-menu" id="navMenu">
+        <a href="#collections" class="nav-link active" data-filter="all">All Fragrances</a>
+        <a href="#collections" class="nav-link" data-filter="men">Men</a>
+        <a href="#collections" class="nav-link" data-filter="women">Women</a>
+        <a href="#collections" class="nav-link" data-filter="oud">Royal Oud</a>
+        <a href="#collections" class="nav-link" data-filter="attar">Attars & Oils</a>
+        <a href="#collections" class="nav-link" data-filter="gift-sets">Gift Sets</a>
+        <a href="#scent-quiz" class="nav-link highlight-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Scent Finder</a>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <!-- Live Search Button / Bar -->
+        <div class="search-wrapper">
+          <input type="text" id="searchInput" placeholder="Search perfumes, notes, oud..." autocomplete="off">
+          <button class="search-btn" id="searchBtn" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+
+        <!-- Wishlist Button -->
+        <button class="action-icon-btn" id="wishlistToggleBtn" title="My Wishlist">
+          <i class="fa-regular fa-heart"></i>
+          <span class="badge" id="wishlistCount">0</span>
+        </button>
+
+        <!-- Cart Button -->
+        <button class="action-icon-btn cart-action-btn" id="cartToggleBtn" title="Shopping Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="badge" id="cartCount">0</span>
+          <span class="cart-subtotal-nav" id="navCartSubtotal">Rs. 0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-bg-overlay"></div>
+    <div class="container hero-container">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <i class="fa-solid fa-crown"></i> Haute Parfumerie Collection 2026
+        </div>
+        <h1 class="hero-title">
+          The Art of <span class="gold-gradient">Scented Opulence</span>
+        </h1>
+        <p class="hero-desc">
+          Indulge in bespoke French distillates and aged Cambodian woods. Hand-blended at 35% pure oil concentration for mesmerizing projection that lingers effortlessly for 14+ hours.
+        </p>
+        <div class="hero-buttons">
+          <a href="#collections" class="btn btn-primary">
+            <span>Explore Collection</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="#scent-quiz" class="btn btn-outline">
+            <i class="fa-solid fa-flask"></i>
+            <span>Take Scent Quiz</span>
+          </a>
+          <a href="https://wa.me/923276018810?text=Hello%20Pomi%20Perfumes%2C%20I%20would%20like%20to%20consult%20about%20your%20luxury%20perfumes" target="_blank" class="btn btn-whatsapp">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>Order on WhatsApp</span>
+          </a>
+        </div>
+
+        <!-- Hero Feature Badges -->
+        <div class="hero-stats">
+          <div class="stat-item">
+            <i class="fa-solid fa-shield-halved"></i>
+            <div>
+              <strong>100% Authentic</strong>
+              <span>Imported Essences</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fa-solid fa-stopwatch"></i>
+            <div>
+              <strong>14+ Hours Sillage</strong>
+              <span>Extrait de Parfum</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fa-solid fa-truck-fast"></i>
+            <div>
+              <strong>Cash on Delivery</strong>
+              <span>Express Delivery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual Showcase -->
+      <div class="hero-visual">
+        <div class="hero-card-glow"></div>
+        <div class="hero-bottle-card">
+          <div class="bottle-badge">Pomi Collection</div>
+          <img src="images/pomi-collection.jpg" alt="Pomi Perfumes Premium Collection" class="hero-bottle-img" style="height: 460px; object-fit: cover; border-radius: 8px; margin-bottom: 0.8rem;">
+          <div class="bottle-info" style="text-align: center;">
+            <div class="bottle-cat">PREMIUM PERFUMES</div>
+            <h3 class="bottle-title" style="margin-bottom: 0;">Indulge In Romance</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Scent Finder Quiz Section -->
+  <section class="scent-quiz-section" id="scent-quiz">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-subtitle"><i class="fa-solid fa-compass"></i> BESPOKE RECOMMENDATION</span>
+        <h2 class="section-title">Find Your <span class="gold-gradient">Signature Scent</span></h2>
+        <p class="section-desc">Select your desired atmosphere, notes, or occasion to reveal your personalized perfume match.</p>
+      </div>
+
+      <div class="quiz-options-grid">
+        <button class="quiz-pill-btn active" data-quiz="all">
+          <i class="fa-solid fa-sparkles"></i>
+          <span>All Fragrances</span>
+        </button>
+        <button class="quiz-pill-btn" data-quiz="oud">
+          <i class="fa-solid fa-fire"></i>
+          <span>Smoky Oud & Amber (Royal)</span>
+        </button>
+        <button class="quiz-pill-btn" data-quiz="fresh">
+          <i class="fa-solid fa-water"></i>
+          <span>Crisp Aquatic & Citrus (Daytime)</span>
+        </button>
+        <button class="quiz-pill-btn" data-quiz="sweet">
+          <i class="fa-solid fa-cookie-bite"></i>
+          <span>Vanilla, Tobacco & Tonka (Sensual)</span>
+        </button>
+        <button class="quiz-pill-btn" data-quiz="floral">
+          <i class="fa-solid fa-fan"></i>
+          <span>Damask Rose & Jasmine (Romantic)</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Product Catalog Section -->
+  <section class="products-section" id="collections">
+    <div class="container">
+      <div class="catalog-toolbar">
+        <!-- Category Filters -->
+        <div class="category-tabs" id="categoryTabs">
+          <button class="cat-tab active" data-category="all">All (9)</button>
+          <button class="cat-tab" data-category="men">Men</button>
+          <button class="cat-tab" data-category="women">Women</button>
+          <button class="cat-tab" data-category="unisex">Unisex</button>
+          <button class="cat-tab" data-category="oud">Royal Oud</button>
+          <button class="cat-tab" data-category="attar">Pure Attar</button>
+          <button class="cat-tab" data-category="gift-sets">Gift Sets</button>
+        </div>
+
+        <!-- Sort By Dropdown -->
+        <div class="sort-wrapper">
+          <label for="sortSelect"><i class="fa-solid fa-arrow-down-short-wide"></i> Sort:</label>
+          <select id="sortSelect" class="sort-select">
+            <option value="featured">Featured First</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating">Top Rated</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Active Filter Bar & Results Count -->
+      <div class="results-header">
+        <span id="resultsCount">Showing all perfumes</span>
+        <span class="active-badge-tag" id="currentFilterTag">Filter: All</span>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="productsGrid">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us / Value Proposition -->
+  <section class="features-section">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-award"></i></div>
+          <h3>35% Extrait Oil Ratio</h3>
+          <p>Unlike diluted commercial colognes, our perfumes carry French perfume oils ensuring supreme projection.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+          <h3>Cash on Delivery</h3>
+          <p>Inspect the luxury tamper-proof seal at your doorstep anywhere in Pakistan before making your payment.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+          <h3>7-Day Exchange Policy</h3>
+          <p>Every bottle comes with a complimentary 2ml tester. Test the vial first; if you don't love it, exchange hassle-free.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-gift"></i></div>
+          <h3>Bespoke Luxury Packaging</h3>
+          <p>Every order arrives in our signature velvet magnetic hardbox with embossed gold foil wrapping.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Olfactory Guide / Tips Section -->
+  <section class="guide-section">
+    <div class="container guide-container">
+      <div class="guide-info">
+        <span class="section-subtitle">FRAGRANCE MASTERCLASS</span>
+        <h2 class="section-title">How To Maximize <span class="gold-gradient">Sillage & Longevity</span></h2>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <h4>Moisturize Before Spraying</h4>
+              <p>Fragrance molecules adhere far better to hydrated skin. Apply an unscented lotion or petroleum jelly on pulse points.</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <h4>Target Warm Pulse Points</h4>
+              <p>Spray on wrists, sides of the neck, and behind knees. Body heat gently activates and radiates the perfume all day.</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <h4>Never Rub Your Wrists</h4>
+              <p>Friction crushes the fragile top notes (citrus & florals), altering the evolution of the scent pyramid.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial card -->
+      <div class="guide-review-card">
+        <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+        <div class="stars">★★★★★</div>
+        <p class="review-text">
+          "Sovereign Oud is simply out of this world. I sprayed it in the morning for a wedding in Lahore and could still smell it on my sherwani the next afternoon! Genuine compliments from everyone."
+        </p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">H</div>
+          <div>
+            <strong>Hamza Tariq</strong>
+            <span>Verified Buyer • Defence, Lahore</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Checkout / Order Form Section -->
+  <section class="inline-checkout-section" id="order-form">
+    <div class="container">
+      <div class="inline-checkout-box">
+        <div class="section-header text-center" style="margin-bottom: 2.2rem;">
+          <span class="section-subtitle"><i class="fa-solid fa-bag-shopping"></i> EXPRESS CHECKOUT</span>
+          <h2 class="section-title">Place Your <span class="gold-gradient">Order Now</span></h2>
+          <p class="section-desc">Apni details fill karein aur Cash on Delivery par apna pasandeeda perfume ghar baithe mangwayein.</p>
+        </div>
+
+        <form class="inline-order-form" id="inlineOrderForm">
+          <!-- Select Perfume & Quantity -->
+          <div class="form-row inline-product-row">
+            <div class="form-group">
+              <label for="inlineProductSelect">Select Perfume *</label>
+              <select id="inlineProductSelect" class="inline-select" required>
+                <!-- Populated dynamically by JS -->
+              </select>
+            </div>
+            <div class="form-group inline-qty-group">
+              <label for="inlineProductQty">Quantity *</label>
+              <input type="number" id="inlineProductQty" min="1" max="50" value="1" required>
+            </div>
+          </div>
+
+          <!-- Live Selected Perfume Preview Card -->
+          <div class="inline-product-preview" id="inlineProductPreview"></div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="inlineFullName">Full Name *</label>
+              <input type="text" id="inlineFullName" placeholder="e.g. Muhammad Ali" required>
+            </div>
+            <div class="form-group">
+              <label for="inlinePhone">Phone Number (WhatsApp) *</label>
+              <input type="tel" id="inlinePhone" placeholder="e.g. 0327-6018810" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inlineEmail">Email Address *</label>
+            <input type="email" id="inlineEmail" placeholder="e.g. name@gmail.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="inlineAddress">Complete Address *</label>
+            <textarea id="inlineAddress" rows="2" placeholder="House #, Street #, Sector / Mohalla, Nearby Landmark" required></textarea>
+          </div>
+
+          <div class="form-row inline-three-col">
+            <div class="form-group">
+              <label for="inlineCity">City *</label>
+              <input type="text" id="inlineCity" placeholder="e.g. Lahore, Karachi, Islamabad" required>
+            </div>
+            <div class="form-group">
+              <label for="inlineZip">ZIP / Postal Code *</label>
+              <input type="text" id="inlineZip" placeholder="e.g. 54000" required>
+            </div>
+            <div class="form-group">
+              <label for="inlineCountry">Country *</label>
+              <input type="text" id="inlineCountry" value="Pakistan" placeholder="Country" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="inlinePlaceOrderBtn" style="margin-top: 0.8rem; padding: 1.05rem;">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>Place Order & Send on WhatsApp</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dedicated Contact & Direct Order Section -->
+  <section class="features-section" id="contact-us" style="padding: 3.5rem 0;">
+    <div class="container">
+      <div class="section-header text-center" style="margin-bottom: 2.2rem;">
+        <span class="section-subtitle"><i class="fa-solid fa-headset"></i> 24/7 CUSTOMER CARE & DIRECT ORDERS</span>
+        <h2 class="section-title">Contact <span class="gold-gradient">Pomi Perfumes</span></h2>
+        <p class="section-desc">Direct WhatsApp par order karein ya kisi bhi sawal ke liye Email / Call par rabta karein.</p>
+      </div>
+
+      <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+        <div class="feature-card" style="text-align: center;">
+          <div class="feature-icon" style="margin: 0 auto 1rem; background: rgba(37, 211, 102, 0.15); color: #25d366;">
+            <i class="fa-brands fa-whatsapp"></i>
+          </div>
+          <h3>WhatsApp Order 1</h3>
+          <p style="font-size: 1.05rem; color: #fff; font-weight: 600; margin-bottom: 1rem;">0327-6018810</p>
+          <a href="https://wa.me/923276018810?text=Assalam%20o%20Alaikum%20Hafiz%20Muhammad%20Ahmad%2C%20I%20want%20to%20order%20from%20Pomi%20Perfumes" target="_blank" class="btn btn-whatsapp btn-sm">
+            <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+          </a>
+        </div>
+
+        <div class="feature-card" style="text-align: center;">
+          <div class="feature-icon" style="margin: 0 auto 1rem; background: rgba(37, 211, 102, 0.15); color: #25d366;">
+            <i class="fa-brands fa-whatsapp"></i>
+          </div>
+          <h3>WhatsApp Order 2</h3>
+          <p style="font-size: 1.05rem; color: #fff; font-weight: 600; margin-bottom: 1rem;">0301-7825827</p>
+          <a href="https://wa.me/923017825827?text=Assalam%20o%20Alaikum%20Hafiz%20Muhammad%20Ahmad%2C%20I%20want%20to%20order%20from%20Pomi%20Perfumes" target="_blank" class="btn btn-whatsapp btn-sm">
+            <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+          </a>
+        </div>
+
+        <div class="feature-card" style="text-align: center;">
+          <div class="feature-icon" style="margin: 0 auto 1rem;">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <h3>Official Gmail</h3>
+          <p style="font-size: 0.98rem; color: #fff; font-weight: 600; margin-bottom: 1rem; word-break: break-all;">muhammadahmad4305@gmail.com</p>
+          <a href="mailto:muhammadahmad4305@gmail.com?subject=Pomi%20Perfumes%20Order%20Inquiry" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-paper-plane"></i> Send Email
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col brand-col">
+        <div class="brand-logo footer-logo">
+          <div class="logo-emblem"><i class="fa-solid fa-gem"></i></div>
+          <div class="logo-text">
+            <span class="brand-title">POMI</span>
+            <span class="brand-sub">PERFUMES</span>
+          </div>
+        </div>
+        <p class="footer-text">
+          Crafting exceptional artisanal perfumes inspired by French mastery and Eastern heritage. Each bottle is a statement of refinement and enduring distinction.
+        </p>
+        <div class="social-links">
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="mailto:muhammadahmad4305@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://wa.me/923276018810" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Fragrance Categories</h4>
+        <ul>
+          <li><a href="#collections" onclick="filterCategory('men')">Men's Extrait</a></li>
+          <li><a href="#collections" onclick="filterCategory('women')">Women's Florals</a></li>
+          <li><a href="#collections" onclick="filterCategory('unisex')">Unisex Private Blend</a></li>
+          <li><a href="#collections" onclick="filterCategory('oud')">Royal Cambodian Oud</a></li>
+          <li><a href="#collections" onclick="filterCategory('attar')">Non-Alcoholic Attars</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Customer Care</h4>
+        <ul>
+          <li><a href="#scent-quiz">Scent Finder Quiz</a></li>
+          <li><a href="/dashboard">Store Dashboard (Orders &amp; Add Perfumes)</a></li>
+          <li><a href="#" onclick="openRecentOrdersModal()">View Recent Orders</a></li>
+          <li><a href="#" onclick="showShippingInfo()">Shipping & Delivery</a></li>
+          <li><a href="#" onclick="showReturnsInfo()">7-Day Exchange Policy</a></li>
+          <li><a href="#" onclick="showTesterInfo()">Free 2ml Tester Program</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact & Direct Orders</h4>
+        <div class="contact-item">
+          <i class="fa-solid fa-user-tie"></i>
+          <span><strong>Hafiz Muhammad Ahmad</strong> (Proprietor)</span>
+        </div>
+        <div class="contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <span><a href="tel:03276018810" style="color: inherit; text-decoration: none;">0327-6018810</a> / <a href="tel:03017825827" style="color: inherit; text-decoration: none;">0301-7825827</a></span>
+        </div>
+        <div class="contact-item">
+          <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
+          <span>
+            <a href="https://wa.me/923276018810" target="_blank" style="color: inherit; text-decoration: underline;">0327-6018810</a> &bull; 
+            <a href="https://wa.me/923017825827" target="_blank" style="color: inherit; text-decoration: underline;">0301-7825827</a>
+          </span>
+        </div>
+        <div class="contact-item">
+          <i class="fa-solid fa-envelope"></i>
+          <span><a href="mailto:muhammadahmad4305@gmail.com" style="color: var(--gold-light); text-decoration: none;">muhammadahmad4305@gmail.com</a></span>
+        </div>
+        <div class="contact-item">
+          <i class="fa-solid fa-truck-fast"></i>
+          <span>TCS & Leopard Express 2-3 Days Nationwide (Cash on Delivery)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-content">
+        <p>© 2026 POMI PERFUMES. All Rights Reserved. Designed for Haute Parfumerie Connoisseurs.</p>
+        <div class="payment-badges">
+          <span class="pay-badge"><i class="fa-solid fa-money-bill-wave"></i> Cash on Delivery</span>
+          <span class="pay-badge"><i class="fa-solid fa-building-columns"></i> Bank Transfer</span>
+          <span class="pay-badge"><i class="fa-solid fa-mobile-screen"></i> JazzCash / EasyPaisa</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Quick Order Button -->
+  <a href="https://wa.me/923276018810?text=Hello%20Hafiz%20Muhammad%20Ahmad%2C%20I%20want%20to%20order%20Pomi%20Perfumes" target="_blank" class="floating-whatsapp" title="WhatsApp: 0327-6018810 / 0301-7825827">
+    <i class="fa-brands fa-whatsapp"></i>
+    <span class="wa-tooltip">Order on WhatsApp (0327-6018810)</span>
+  </a>
+
+  <!-- ==================== MODALS & DRAWERS ==================== -->
+
+  <!-- Slide-out Cart Drawer -->
+  <div class="cart-drawer-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <div class="cart-title">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <h3>Your Fragrance Bag (<span id="cartDrawerCount">0</span>)</h3>
+      </div>
+      <button class="cart-close-btn" id="closeCartBtn" aria-label="Close Cart">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Free Shipping Progress -->
+    <div class="free-shipping-bar-container">
+      <div class="shipping-notice" id="shippingNotice">
+        <span>Add <strong id="shippingAmountNeeded">Rs. 5,000</strong> more for <strong>FREE Delivery!</strong></span>
+      </div>
+      <div class="shipping-progress-bg">
+        <div class="shipping-progress-fill" id="shippingProgressFill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Cart Items List -->
+    <div class="cart-items" id="cartItemsList">
+      <!-- Items dynamically injected -->
+      <div class="empty-cart-view" id="emptyCartView">
+        <i class="fa-solid fa-spray-can-sparkles empty-icon"></i>
+        <h4>Your bag is currently empty</h4>
+        <p>Explore our private reserve perfumes and find your signature scent.</p>
+        <button class="btn btn-primary" onclick="closeCart(); location.href='#collections';">
+          Discover Fragrances
+        </button>
+      </div>
+    </div>
+
+    <!-- Cart Footer with Totals and Checkout -->
+    <div class="cart-footer" id="cartFooter">
+      <!-- Coupon Code Section -->
+      <div class="coupon-box">
+        <div class="coupon-input-group">
+          <input type="text" id="couponCodeInput" placeholder="Promo code (try LUXURY10)">
+          <button class="btn btn-sm" id="applyCouponBtn">Apply</button>
+        </div>
+        <div class="coupon-status" id="couponStatus"></div>
+      </div>
+
+      <!-- Price Breakdown -->
+      <div class="cart-summary-breakdown">
+        <div class="summary-line">
+          <span>Subtotal</span>
+          <span id="cartSubtotalText">Rs. 0</span>
+        </div>
+        <div class="summary-line discount-line" id="discountLine" style="display: none;">
+          <span>Discount Code (<span id="activeCouponLabel"></span>)</span>
+          <span id="discountAmountText">- Rs. 0</span>
+        </div>
+        <div class="summary-line">
+          <span>Nationwide Delivery</span>
+          <span id="cartShippingText">Rs. 250</span>
+        </div>
+        <div class="summary-line total-line">
+          <span>Estimated Total</span>
+          <span id="cartTotalText">Rs. 0</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="cart-actions">
+        <button class="btn btn-primary btn-block" id="proceedCheckoutBtn">
+          <span>Proceed to Checkout</span>
+          <i class="fa-solid fa-lock"></i>
+        </button>
+        <button class="btn btn-whatsapp btn-block" id="cartWhatsAppOrderBtn">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>Order Bag on WhatsApp</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Product Details Quick View Modal -->
+  <div class="modal-overlay" id="productModalOverlay">
+    <div class="product-modal">
+      <button class="modal-close-btn" id="closeProductModalBtn" aria-label="Close modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="product-modal-content" id="productModalContent">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div class="modal-overlay" id="checkoutModalOverlay">
+    <div class="checkout-modal">
+      <button class="modal-close-btn" id="closeCheckoutModalBtn" aria-label="Close checkout">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="checkout-modal-header">
+        <i class="fa-solid fa-shield-halved"></i>
+        <div>
+          <h3>Secure Checkout</h3>
+          <p>Cash on Delivery & Instant Nationwide Dispatch</p>
+        </div>
+      </div>
+
+      <div class="checkout-grid">
+        <!-- Form Details -->
+        <form class="checkout-form" id="checkoutForm">
+          <h4>1. Delivery Information</h4>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="custName">Full Name *</label>
+              <input type="text" id="custName" placeholder="e.g. Ali Ahmed" required>
+            </div>
+            <div class="form-group">
+              <label for="custPhone">Mobile Number (Active WhatsApp) *</label>
+              <input type="tel" id="custPhone" placeholder="0300-1234567" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="custEmail">Email Address</label>
+              <input type="email" id="custEmail" placeholder="ali@example.com">
+            </div>
+            <div class="form-group">
+              <label for="custCity">City *</label>
+              <input type="text" id="custCity" placeholder="Karachi, Lahore, Islamabad, etc." required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="custAddress">Full Shipping Address *</label>
+            <textarea id="custAddress" rows="2" placeholder="House #, Street #, Sector / Area, Landmark" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="custNotes">Special Instructions (Optional)</label>
+            <input type="text" id="custNotes" placeholder="e.g. Call before delivery, gift wrap requested">
+          </div>
+
+          <h4>2. Select Payment Method</h4>
+          <div class="payment-methods-selector">
+            <label class="payment-option selected">
+              <input type="radio" name="paymentMethod" value="cod" checked>
+              <div class="payment-option-card">
+                <i class="fa-solid fa-hand-holding-dollar"></i>
+                <div>
+                  <strong>Cash on Delivery (COD)</strong>
+                  <span>Pay with cash when courier hands over your parcel</span>
+                </div>
+              </div>
+            </label>
+
+            <label class="payment-option">
+              <input type="radio" name="paymentMethod" value="online">
+              <div class="payment-option-card">
+                <i class="fa-solid fa-building-columns"></i>
+                <div>
+                  <strong>Bank Transfer / JazzCash / EasyPaisa</strong>
+                  <span>Account details will be sent via SMS / WhatsApp</span>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block submit-order-btn" id="submitOrderBtn">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>Confirm & Send Order on WhatsApp</span>
+          </button>
+        </form>
+
+        <!-- Order Summary on Checkout -->
+        <div class="checkout-summary-box">
+          <h4>Order Summary & Product Selector</h4>
+          <div class="checkout-product-picker">
+            <select id="checkoutProductSelect" aria-label="Select perfume to add">
+              <!-- Populated dynamically by JS -->
+            </select>
+            <button type="button" class="btn btn-sm btn-primary" id="checkoutAddProductBtn" title="Add perfume to order">
+              <i class="fa-solid fa-plus"></i> Add
+            </button>
+          </div>
+          <div class="checkout-items-list" id="checkoutItemsList">
+            <!-- Rendered by JS -->
+          </div>
+          <div class="checkout-totals">
+            <div class="summary-line">
+              <span>Items Total:</span>
+              <span id="checkoutSubtotal">Rs. 0</span>
+            </div>
+            <div class="summary-line" id="checkoutDiscountLine" style="display: none;">
+              <span>Discount:</span>
+              <span id="checkoutDiscount" class="text-gold">- Rs. 0</span>
+            </div>
+            <div class="summary-line">
+              <span>Delivery Charges:</span>
+              <span id="checkoutShipping">Rs. 0</span>
+            </div>
+            <div class="summary-line total-line">
+              <span>Net Payable:</span>
+              <span id="checkoutFinalTotal" class="text-gold">Rs. 0</span>
+            </div>
+          </div>
+          <div class="checkout-guarantee">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Includes 2ml complimentary tester + 7-day swap guarantee</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Success Confirmation Modal -->
+  <div class="modal-overlay" id="orderSuccessModal">
+    <div class="success-modal">
+      <div class="success-icon-wrap">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <h2>Order Placed Successfully!</h2>
+      <p class="success-sub">Thank you for choosing POMI PERFUMES. Your order has been registered.</p>
+
+      <div class="order-details-card">
+        <div class="detail-row">
+          <span>Order Reference:</span>
+          <strong id="successOrderId" class="text-gold">ALX-123456</strong>
+        </div>
+        <div class="detail-row">
+          <span>Tracking ID:</span>
+          <strong id="successTrackingId">TRK-98765432</strong>
+        </div>
+        <div class="detail-row">
+          <span>Customer:</span>
+          <span id="successCustomerName">Ali Ahmed</span>
+        </div>
+        <div class="detail-row">
+          <span>Total Amount:</span>
+          <strong id="successTotalAmount">Rs. 8,950</strong>
+        </div>
+        <div class="detail-row">
+          <span>Payment:</span>
+          <span id="successPaymentMethod">Cash on Delivery</span>
+        </div>
+      </div>
+
+      <div class="success-actions">
+        <button class="btn btn-whatsapp btn-block" id="successWhatsAppConfirmBtn">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>Confirm on WhatsApp (0327-6018810)</span>
+        </button>
+        <button class="btn btn-whatsapp btn-block" id="successWhatsAppConfirmBtn2" style="background:#075e54;">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>Confirm on WhatsApp 2 (0301-7825827)</span>
+        </button>
+        <button class="btn btn-outline btn-block" onclick="closeSuccessModal()">
+          Continue Shopping
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Orders / Live Admin Quick Modal -->
+  <div class="modal-overlay" id="recentOrdersModal">
+    <div class="recent-orders-modal">
+      <button class="modal-close-btn" onclick="closeRecentOrdersModal()" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="modal-header">
+        <i class="fa-solid fa-clipboard-list"></i>
+        <h3>Store Orders Ledger</h3>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom: 1rem;">
+        <p class="text-muted" style="margin: 0; font-size: 0.9rem;">
+          Real-time view of orders placed on Pomi Perfumes.
+        </p>
+        <a href="/dashboard" class="btn btn-primary btn-sm" style="text-decoration:none;">
+          <i class="fa-solid fa-gauge-high"></i> Open Full Dashboard
+        </a>
+      </div>
+      <div class="orders-table-wrapper" id="ordersTableWrapper">
+        <p>Loading orders...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wishlist Slide-Over -->
+  <div class="wishlist-modal-overlay" id="wishlistOverlay"></div>
+  <aside class="wishlist-drawer" id="wishlistDrawer">
+    <div class="cart-header">
+      <div class="cart-title">
+        <i class="fa-regular fa-heart"></i>
+        <h3>My Wishlist (<span id="wishlistDrawerCount">0</span>)</h3>
+      </div>
+      <button class="cart-close-btn" id="closeWishlistBtn" aria-label="Close Wishlist">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="wishlist-items" id="wishlistItemsList">
+      <!-- Items dynamically populated -->
+    </div>
+  </aside>
+
+  <!-- Notification Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="js/products-data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
